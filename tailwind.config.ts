@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        'icewindDale': "url('/images/icewind-dale.jpg')",
+      }
     },
   },
   plugins: [],
