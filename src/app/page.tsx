@@ -2,6 +2,6 @@ import Map from "@/components/Map";
 
 export default function Home() {
   return (
-    <Map imageUrl="/images/icewind-dale.jpg"/>
+    <Map />
   );
 }
