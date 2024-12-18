@@ -19,3 +19,14 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.leaflet-container {
+  background: #0a0a0a;
+  outline: 0;
+}
+
+@layer base {
+  a {
+    color: theme('colors.blue.500');
+  }
+}
