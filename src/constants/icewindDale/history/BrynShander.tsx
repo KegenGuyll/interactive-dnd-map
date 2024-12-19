@@ -5,6 +5,7 @@ import { Settlement } from "@/types/settlement";
 const BrynShander = (): Settlement => {
   return {
     name: IcewindDaleLocations.BrynShander,
+    url: "/icewind-dale/bryn-shander",
     settlementIcon: "/static/warped-icewind-dale-map/images/brynshander-settlementIcon.webp",
     description: () => (
       <>

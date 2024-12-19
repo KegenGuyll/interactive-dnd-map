@@ -1,6 +1,7 @@
 export type Settlement = {
   name: string
   settlementIcon: string
+  url?: string
   description: () => React.ReactNode
   geography: {
     aliases: string[]
