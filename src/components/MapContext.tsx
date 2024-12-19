@@ -1,6 +1,7 @@
 import { Settlement } from "@/types/settlement"
 import classNames from "classnames"
 import Image from "next/image"
+import Link from "next/link"
 import { FaTimes } from "react-icons/fa"
 
 type MapContextProps = {
@@ -30,6 +31,9 @@ const MapContext: React.FC<MapContextProps> = ({mapTitle, selectedSettlement, se
         <div className='p-4 pt-0'>
           <div className='p-4 bg-gray-100 rounded mt-4 flex flex-col gap-4'>
             <h1 className='text-2xl font-bold'>{selectedSettlement.name}</h1>
+            {selectedSettlement.url && (
+              <Link className="text-sm" href={selectedSettlement.url} >View City Map</Link>
+            )}
             <Image
               src={selectedSettlement.settlementIcon}
               height={100}
