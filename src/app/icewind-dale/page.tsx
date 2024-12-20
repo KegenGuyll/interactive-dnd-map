@@ -1,15 +1,19 @@
-'use client'
+'use client';
 
-import IcewindDaleLocationsLayer from '@/components/layers/icewindDale/locations'
 import MapContext from '@/components/MapContext'
 import { Settlement } from '@/types/settlement'
-import { LeafletMouseEvent } from 'leaflet'
+import type { LeafletMouseEvent } from 'leaflet'
 import dynamic from 'next/dynamic'
 import React from 'react'
-import { useMapEvents } from 'react-leaflet'
- 
+import { useMapEvents } from 'react-leaflet';
+
 const Map = dynamic(
   () => import('@/components/Map'),
+  { ssr: false }
+)
+
+const IcewindDaleLocationsLayer = dynamic(
+  () => import('@/components/layers/icewindDale/locations'),
   { ssr: false }
 )
  
@@ -23,12 +27,12 @@ type DeselectSettlementProps = {
 }
 
 function DeselectSettlement({ setSelectedSettlement }: DeselectSettlementProps) {
-  useMapEvents({
-    preclick() {
-      setSelectedSettlement(undefined);
-    },
-  });
-
+    useMapEvents({
+      preclick() {
+        setSelectedSettlement(undefined);
+      },
+    });
+  
   return null;
 }
 
@@ -44,7 +48,7 @@ const IcewindDale = () => {
       tileLayer={<IcewindDaleTileLayer/>} 
       layerGroups={[
         <IcewindDaleLocationsLayer key={1} onLocationClick={handleLocationClick} />,
-        <DeselectSettlement key={2} setSelectedSettlement={setSelectedSettlement} />
+        typeof window !== 'undefined' && <DeselectSettlement key={2} setSelectedSettlement={setSelectedSettlement} />
       ]} 
       mapOverlays={[
         <MapContext
