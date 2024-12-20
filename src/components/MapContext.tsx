@@ -31,10 +31,12 @@ const MapContext: React.FC<MapContextProps> = ({mapTitle}: MapContextProps) => {
       {selectedSettlement && (
         <div className='p-4 pt-0'>
           <div className='p-4 bg-gray-100 rounded mt-4 flex flex-col gap-4'>
-            <h1 className='text-2xl font-bold'>{selectedSettlement.name}</h1>
-            {selectedSettlement.url && (
-              <Link className="text-sm" href={selectedSettlement.url} >View City Map</Link>
-            )}
+            <div className="flex items-center">
+              <h1 className='text-2xl font-bold flex-grow'>{selectedSettlement.name}</h1>
+              {selectedSettlement.url && (
+                <Link className="text-sm" href={selectedSettlement.url} >View Map</Link>
+              )}
+            </div>
             <Image
               src={selectedSettlement.settlementIcon}
               height={100}
