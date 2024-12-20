@@ -28,5 +28,6 @@ body {
 @layer base {
   a {
     color: theme('colors.blue.500');
+    @apply hover:underline;
   }
 }
