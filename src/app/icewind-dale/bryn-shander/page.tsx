@@ -2,8 +2,10 @@
 
 import BaseMapOverlay from '@/components/BaseMapOverlay'
 import Button from '@/components/ui/Button'
+import classNames from 'classnames'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
+import { FaArrowLeft } from 'react-icons/fa'
  
 const Map = dynamic(
   () => import('@/components/Map'),
@@ -21,11 +23,20 @@ const Brynshander = () => {
   return (
     <Map 
       tileLayer={<BrynshanderTileLayer/>} 
-      zoomSettings={{min: 10, max: 13}}
+      zoomSettings={{min: 9, max: 13}}
       mapOverlays={[
-        <BaseMapOverlay className='top-5 left-5 p-1' key={1}>
+        <BaseMapOverlay 
+          className={classNames('', 'top-2 left-2 p-0.5', 'lg:top-5 lg:left-5 md:p-1')} 
+          key={1}
+        >
           <div >
-            <Button onClick={() => router.back()} variant='primary'>Back to Icewind Dale</Button>
+            <Button 
+              onClick={() => router.back()} 
+              variant='primary'
+              startAdornment={<FaArrowLeft/>}
+              >
+              Back
+              </Button>
           </div>
         </BaseMapOverlay>
       ]}
