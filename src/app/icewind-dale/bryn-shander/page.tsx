@@ -1,6 +1,9 @@
 'use client'
 
+import BaseMapOverlay from '@/components/BaseMapOverlay'
+import Button from '@/components/ui/Button'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
  
 const Map = dynamic(
   () => import('@/components/Map'),
@@ -13,10 +16,19 @@ const BrynshanderTileLayer = dynamic(
 )
 
 const Brynshander = () => {
+  const router = useRouter()
+
   return (
     <Map 
       tileLayer={<BrynshanderTileLayer/>} 
       zoomSettings={{min: 10, max: 13}}
+      mapOverlays={[
+        <BaseMapOverlay className='top-5 left-5 p-1' key={1}>
+          <div >
+            <Button onClick={() => router.back()} variant='primary'>Back to Icewind Dale</Button>
+          </div>
+        </BaseMapOverlay>
+      ]}
     />
   )
 }
