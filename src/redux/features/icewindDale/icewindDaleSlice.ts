@@ -1,32 +1,26 @@
+import { Settlement } from '@/types/settlement'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface InitialState {
-  value: number
+  selectedSettlement: Settlement | undefined
 }
 
 const initialState: InitialState = {
-  value: 0,
+  selectedSettlement: undefined
 }
 
 export const icewindDaleSlice = createSlice({
   name: 'icewindDale',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1
-    },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
-    },
+    setSelectedSettlement: (state, action: PayloadAction<Settlement | undefined>) => {
+      state.selectedSettlement = action.payload
+    }
   },
 })
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = icewindDaleSlice.actions
+export const { setSelectedSettlement } = icewindDaleSlice.actions
 
 export default icewindDaleSlice.reducer
 

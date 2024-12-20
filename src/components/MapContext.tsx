@@ -1,4 +1,5 @@
-import { Settlement } from "@/types/settlement"
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks"
+import { setSelectedSettlement } from "@/redux/features/icewindDale/icewindDaleSlice"
 import classNames from "classnames"
 import Image from "next/image"
 import Link from "next/link"
@@ -6,11 +7,11 @@ import { FaTimes } from "react-icons/fa"
 
 type MapContextProps = {
   mapTitle: string
-  selectedSettlement?: Settlement
-  setSelectedSettlement: React.Dispatch<React.SetStateAction<Settlement | undefined>>
 }
 
-const MapContext: React.FC<MapContextProps> = ({mapTitle, selectedSettlement, setSelectedSettlement}: MapContextProps) => {
+const MapContext: React.FC<MapContextProps> = ({mapTitle}: MapContextProps) => {
+  const { selectedSettlement } = useAppSelector((state) => state.icewindDale);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={classNames(
@@ -23,7 +24,7 @@ const MapContext: React.FC<MapContextProps> = ({mapTitle, selectedSettlement, se
           <h1 className='text-xl font-bold'>{mapTitle}</h1>
           <p className='text-xs font-light text-gray-600'>Click on a location to view more information</p>
         </div>
-        <button onClick={() => setSelectedSettlement(undefined)}>
+        <button onClick={() => dispatch(setSelectedSettlement(undefined))}>
           <FaTimes />
         </button>
       </div>

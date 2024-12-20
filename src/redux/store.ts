@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import icewindDaleReducer from './features/icewindDale/icewindDaleSlice'
 
+
+
 export const store = configureStore({
   reducer: {
     icewindDale: icewindDaleReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

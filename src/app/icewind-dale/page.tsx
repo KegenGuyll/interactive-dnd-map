@@ -1,6 +1,8 @@
 'use client';
 
 import MapContext from '@/components/MapContext'
+import { useAppDispatch } from '@/hooks/reduxHooks';
+import { setSelectedSettlement } from '@/redux/features/icewindDale/icewindDaleSlice';
 import { Settlement } from '@/types/settlement'
 import type { LeafletMouseEvent } from 'leaflet'
 import dynamic from 'next/dynamic'
@@ -22,14 +24,14 @@ const IcewindDaleTileLayer = dynamic(
   { ssr: false }
 )
 
-type DeselectSettlementProps = {
-  setSelectedSettlement: React.Dispatch<React.SetStateAction<Settlement | undefined>>;
-}
 
-function DeselectSettlement({ setSelectedSettlement }: DeselectSettlementProps) {
+
+function DeselectSettlement() {
+  const dispatch = useAppDispatch();
+
     useMapEvents({
       preclick() {
-        setSelectedSettlement(undefined);
+        dispatch(setSelectedSettlement(undefined));
       },
     });
   
@@ -37,10 +39,10 @@ function DeselectSettlement({ setSelectedSettlement }: DeselectSettlementProps) 
 }
 
 const IcewindDale = () => {
-  const [selectedSettlement, setSelectedSettlement] = React.useState<Settlement | undefined>(undefined);
+  const dispatch = useAppDispatch();
   
   const handleLocationClick = (e: LeafletMouseEvent, settlement?: Settlement) => {
-    setSelectedSettlement(settlement);
+    dispatch(setSelectedSettlement(settlement));
   }
 
   return (
@@ -48,14 +50,16 @@ const IcewindDale = () => {
       tileLayer={<IcewindDaleTileLayer/>} 
       layerGroups={[
         <IcewindDaleLocationsLayer key={1} onLocationClick={handleLocationClick} />,
-        typeof window !== 'undefined' && <DeselectSettlement key={2} setSelectedSettlement={setSelectedSettlement} />
+        typeof window !== 'undefined' && (
+          <DeselectSettlement 
+            key={2} 
+          />
+        )
       ]} 
       mapOverlays={[
         <MapContext
           key={1}
           mapTitle='Icewind Dale'
-          selectedSettlement={selectedSettlement}
-          setSelectedSettlement={setSelectedSettlement}
         />
       ]}
     />
