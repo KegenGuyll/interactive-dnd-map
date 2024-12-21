@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import icewindDaleReducer from './features/icewindDale/icewindDaleSlice'
+import brynShanderReducer from './features/icewindDale/settlements/brynShanderSlice'
 
 
 
 export const store = configureStore({
   reducer: {
     icewindDale: icewindDaleReducer,
+    brynShander: brynShanderReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}),
 })
