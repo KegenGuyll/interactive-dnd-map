@@ -1,8 +1,13 @@
 'use client'
 
 import BaseMapOverlay from '@/components/BaseMapOverlay'
+import TownServiceContext from '@/components/TownServiceContext'
 import Button from '@/components/ui/Button'
+import { useAppDispatch } from '@/hooks/reduxHooks'
+import { setSelectedTownService } from '@/redux/features/icewindDale/settlements/brynShanderSlice'
+import { TownService } from '@/types/townServices'
 import classNames from 'classnames'
+import type { LeafletMouseEvent } from 'leaflet'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { FaArrowLeft } from 'react-icons/fa'
@@ -24,18 +29,23 @@ const BrynShanderLocationsLayer = dynamic(
 
 const Brynshander = () => {
   const router = useRouter()
+  const dispatch = useAppDispatch()
+
+  const handleLocationClick = (e: LeafletMouseEvent, townService?: TownService) => {
+    dispatch(setSelectedTownService(townService))
+  }
 
   return (
     <Map
       tileLayer={<BrynshanderTileLayer/>} 
       zoomSettings={{min: 9, max: 13}}
-      enableDraw
       layerGroups={[
-        <BrynShanderLocationsLayer key={1} />,
+        <BrynShanderLocationsLayer onLocationClick={handleLocationClick} key={1} />,
       ]}
       mapOverlays={[
         <BaseMapOverlay 
-          className={classNames('', 'top-2 left-2 p-0.5', 'lg:top-5 lg:left-5 md:p-1')} 
+          childrenContainerStyle='p-0.5 md:p-1'
+          className={classNames('', 'top-2 left-2 ', 'lg:top-5 lg:left-5')} 
           key={1}
         >
           <div >
@@ -45,9 +55,10 @@ const Brynshander = () => {
               startAdornment={<FaArrowLeft/>}
               >
               Back
-              </Button>
+            </Button>
           </div>
-        </BaseMapOverlay>
+        </BaseMapOverlay>,
+        <TownServiceContext key={2} />
       ]}
     />
   )
