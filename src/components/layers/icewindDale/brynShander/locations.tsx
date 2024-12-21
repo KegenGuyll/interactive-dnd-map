@@ -1,17 +1,22 @@
-import type { LatLngExpression } from 'leaflet'
 import React from 'react'
 import { FeatureGroup, LayerGroup, Polygon } from 'react-leaflet'
+import { IcewindDaleLocations } from '../locations'
+import { TownService } from '@/types/townServices'
+import type { LeafletMouseEvent } from 'leaflet'
+import { useAppSelector } from '@/hooks/reduxHooks'
 
-type BrynShanderLocation = {
-  name: string
-  center: [number, number]
-  polygon: LatLngExpression[]
-}
-
-const brynShanderLocations: BrynShanderLocation[] = [
+const brynShanderLocations: TownService[] = [
   {
     name: "House of the Morninglord",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'place of worship',
+    services: [],
+    owners: ["Cleric Mithann"],
+    description: "The House of the Morninglord in Bryn Shander was the town's place of worship for the Keeper of the Eternal Sun, Amaunator. It was overseen by the devout and irrepressible cleric Mithann.",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "",
+    visible: true,
     polygon: [
         [
           52.961668,
@@ -53,7 +58,21 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: 'The Hooked Knucklehead',
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'inn',
+    services: [
+      "Rest",
+      "Food",
+    ],
+    owners: ["Barton"],
+    description: "The Hooked Knucklehead was a longstanding inn in Bryn Shander.",
+    voloRating: {
+      pipes: 1,
+      coins: 4,
+    },
+    atmosphere: "The Hooked Knucklehead was mostly frequented by traders from neighboring cities who came to Bryn Shander for business. The owner, Barton, did not interfere with his clients' affairs.",
+    architectureStyle: "",
+    visible: true,
     polygon: [
       [
         52.922151,
@@ -99,7 +118,15 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "Rendaril's Emporium",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'general store',
+    services: ["Goods"],
+    owners: ["Rendaril"],
+    description: "Rendaril's Emporium was the largest and busiest mercantile building in Bryn Shander during the late 15th century DR. It owed its name to its proprietor, the cunning half-elven merchant Rendaril",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "",
+    visible: true,
     polygon: [
       [
         52.831084,
@@ -133,7 +160,21 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "Geldenstag's Rest",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'inn',
+    services: [
+      'Rest',
+      'Food',
+    ],
+    owners: ["Myrtle"],
+    description: "Geldenstag's Rest was one of the oldest inns in Bryn Shander.",
+    voloRating: {
+      pipes: 1,
+      coins: 4,
+    },
+    atmosphere: "The proprietor, Myrtle, was known to constantly ask her customers about what they were up to each day.",
+    architectureStyle: "",
+    visible: true,
     polygon: [
       [
         52.769124,
@@ -207,7 +248,15 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "Town Hall",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'town hall',
+    services: [],
+    owners: [],
+    description: "",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "",
+    visible: false,
     polygon: [
       [ 52.742735, 0.366325 ], [ 52.743359, 0.375595 ],
       [ 52.759152, 0.374222 ], [ 52.75936, 0.418167 ],
@@ -223,7 +272,15 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "Speaker's Palace",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'residence',
+    services: [],
+    owners: ["Cassius", "Duvessa Shane"],
+    description: "The Speaker's Palace was the personal residence of the Speaker of Bryn Shander, the individual who represented the settlement to the rest of the Ten Towns.",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "Stone building of dwarven architecture",
+    visible: true,
     polygon: [
       [ 52.608885, 0.31105 ],
       [ 52.555481, 0.338516 ],
@@ -234,7 +291,15 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "Council Hall",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'town hall',
+    services: [],
+    owners: [],
+    description: "",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "",
+    visible: false,
     polygon: [
       [ 52.464795, 0.030899 ], [ 52.451616, 0.024033 ],
       [ 52.450151, 0.015793 ], [ 52.434455, 0.00824 ],
@@ -251,7 +316,15 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "Stables",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'residence',
+    services: [],
+    owners: [],
+    description: "",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "",
+    visible: false,
     polygon: [
       [ 52.49616, -0.500908 ],
       [ 52.50243, -0.454903 ],
@@ -271,7 +344,15 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "House of the Triad",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'temple',
+    services: [],
+    owners: ["Traveling clergy members"],
+    description: "The House of the Triad was a temple dedicated to the deities of the Triad in the walled town of Bryn Shander. The stone structure was the largest holy place within the most prominent settlement of the Ten Towns.",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "Made of stone in the dwarven style",
+    visible: true,
     polygon: [
       [ 52.595228, -0.164795 ],
       [ 52.591786, -0.158443 ],
@@ -292,7 +373,15 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "Kevin's Comfort",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'tavern',
+    services: ["Flamebeard's Firebrandy", "Mead from Good Mead"],
+    owners: ["Ogden Flamebeard"],
+    description: "Kelvin's Comfort was a tavern in Bryn Shander.",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "",
+    visible: true,
     polygon: [
       [ 52.69969, 0.304871 ],
       [ 52.713627, 0.303154 ],
@@ -309,7 +398,15 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "Armory",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'general store',
+    services: [],
+    owners: [],
+    description: "",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "",
+    visible: false,
     polygon: [
       [ 52.787815, 0.090637 ],
       [ 52.774316, 0.091667 ],
@@ -324,7 +421,15 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "Blackiron Blades",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'blacksmith',
+    services: ["Low-quality weapons"],
+    owners: ["Elza", "Garn"],
+    description: "Blackiron Blades was a small smithy and weapons shop in Bryn Shander in Icewind Dale. Located a short distance north of the town square, it was known as a one-stop shop for travelers and adventurers.",
+    voloRating: undefined,
+    atmosphere: "",
+    architectureStyle: "",
+    visible: true,
     polygon: [
       [ 52.899998, 0.32444 ],
       [ 52.864985, 0.33989 ],
@@ -339,7 +444,18 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
   {
     name: "The Northlook",
-    center: [0, 0],
+    town: IcewindDaleLocations.BrynShander,
+    type: 'inn',
+    services: [],
+    owners: ["Scramsax"],
+    description: "The Northlook was an inn in Bryn Shander",
+    voloRating: {
+      pipes: 1,
+      coins: 4,
+    },
+    atmosphere: "The Northlook was frequented mostly by adventurers and mercenaries.",
+    architectureStyle: "",
+    visible: true,
     polygon: [
       [ 53.111957, 0.182648 ],
       [ 53.097529, 0.183678 ],
@@ -360,20 +476,32 @@ const brynShanderLocations: BrynShanderLocation[] = [
   },
 ]
 
-const BrynShanderLocationsLayer: React.FC = () => {
+type BrynShanderLocationsLayerProps = {
+  onLocationClick: (e: LeafletMouseEvent, townService?: TownService) => void
+}
+
+const BrynShanderLocationsLayer: React.FC<BrynShanderLocationsLayerProps> = ({onLocationClick}: BrynShanderLocationsLayerProps) => {
+  const { selectedTownService } = useAppSelector(state => state.brynShander)
+  
   return (
     <LayerGroup>
-      {brynShanderLocations.map((location, index) => (
-        <FeatureGroup
-          eventHandlers={{ click: () => console.log(location.name)}}
-          key={index}
-        >
-          <Polygon
-            pathOptions={{color: 'yellow', fillOpacity: 0.3, stroke: false}}
-            positions={location.polygon}
-          />
-        </FeatureGroup>
-      ))}
+      {brynShanderLocations.map((location, index) => {
+        if(!location.visible) return null
+
+        const isActiveSelection = location.name === selectedTownService?.name
+
+        return (
+          <FeatureGroup
+            eventHandlers={{ click: (e) => onLocationClick(e, location)}}
+            key={index}
+          >
+            <Polygon
+              pathOptions={{color: isActiveSelection ? 'blue' : 'yellow', fillOpacity: 0.3, stroke: false}}
+              positions={location.polygon}
+            />
+          </FeatureGroup>
+        )
+      })}
     </LayerGroup>
   )
 }
