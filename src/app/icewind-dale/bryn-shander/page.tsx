@@ -11,6 +11,7 @@ import type { LeafletMouseEvent } from 'leaflet'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { FaArrowLeft } from 'react-icons/fa'
+import { useMapEvents } from 'react-leaflet/hooks'
  
 const Map = dynamic(
   () => import('@/components/Map'),
@@ -27,6 +28,18 @@ const BrynShanderLocationsLayer = dynamic(
   { ssr: false }
 )
 
+function DeselectTownService() {
+  const dispatch = useAppDispatch();
+
+    useMapEvents({
+      preclick() {
+        dispatch(setSelectedTownService(undefined));
+      },
+    });
+  
+  return null;
+}
+
 const Brynshander = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -41,6 +54,11 @@ const Brynshander = () => {
       zoomSettings={{min: 9, max: 13}}
       layerGroups={[
         <BrynShanderLocationsLayer onLocationClick={handleLocationClick} key={1} />,
+        typeof window !== 'undefined' && (
+          <DeselectTownService 
+            key={2} 
+          />
+        )
       ]}
       mapOverlays={[
         <BaseMapOverlay 
