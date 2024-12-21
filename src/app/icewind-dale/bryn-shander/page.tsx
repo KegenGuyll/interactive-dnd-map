@@ -17,13 +17,22 @@ const BrynshanderTileLayer = dynamic(
   { ssr: false }
 )
 
+const BrynShanderLocationsLayer = dynamic(
+  () => import('@/components/layers/icewindDale/brynShander/locations'), 
+  { ssr: false }
+)
+
 const Brynshander = () => {
   const router = useRouter()
 
   return (
-    <Map 
+    <Map
       tileLayer={<BrynshanderTileLayer/>} 
       zoomSettings={{min: 9, max: 13}}
+      enableDraw
+      layerGroups={[
+        <BrynShanderLocationsLayer key={1} />,
+      ]}
       mapOverlays={[
         <BaseMapOverlay 
           className={classNames('', 'top-2 left-2 p-0.5', 'lg:top-5 lg:left-5 md:p-1')} 
