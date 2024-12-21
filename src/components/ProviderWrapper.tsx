@@ -1,6 +1,7 @@
 'use client';
 
 import { store } from "@/redux/store"
+import { Analytics } from "@vercel/analytics/next";
 import { Provider } from "react-redux"
 
 type ProviderWrapperProps = {
@@ -11,6 +12,7 @@ const ProviderWrapper: React.FC<ProviderWrapperProps> = ({children}: ProviderWra
   return (
     <Provider store={store}>
       {children}
+      <Analytics/>
     </Provider>
   )
 }
