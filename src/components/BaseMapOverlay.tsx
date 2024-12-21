@@ -26,7 +26,7 @@ const BaseMapOverlay: React.FC<BaseMapOverlayProps> = ({children, childrenContai
           </div>
         )}
         {!hideChildren && (
-          <div className={classNames('p-2 pt-0', childrenContainerStyle)}>
+          <div className={classNames('p-2', childrenContainerStyle)}>
             {children}
           </div>
         )}
