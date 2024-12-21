@@ -2,11 +2,13 @@
 
 import React, { useMemo } from 'react';
 import { MapContainer } from 'react-leaflet/MapContainer'
-import { useMapEvents } from 'react-leaflet';
+import type { Map as LeafletMap } from 'leaflet'
+import { FeatureGroup, useMapEvents } from 'react-leaflet';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { LatLngExpression } from 'leaflet';
+import dynamic from 'next/dynamic';
 
-
+const EditControl = dynamic(() => import('react-leaflet-draw').then((value) => value.EditControl), { ssr: false });
 
 function SetUrlParams() {
   const router = useRouter();
@@ -33,9 +35,11 @@ function SetUrlParams() {
       min: number
       max: number
     }
+    enableDraw?: boolean
+    ref?: React.RefObject<LeafletMap | null>
   }
 
-const Map: React.FC<MapProps> = ({tileLayer, layerGroups, mapOverlays, zoomSettings}) => {
+const Map: React.FC<MapProps> = ({tileLayer, layerGroups, mapOverlays, zoomSettings, enableDraw = false, ref}) => {
   const searchParams = useSearchParams();
   const zoom = searchParams.get('zoom');
   const lat = searchParams.get('lat');
@@ -51,6 +55,7 @@ const Map: React.FC<MapProps> = ({tileLayer, layerGroups, mapOverlays, zoomSetti
   return (
     <div className='h-screen w-screen relative'>
       <MapContainer   
+        ref={ref}
         bounds={[
           [52.19990807412985, 1.5754550295695455],
           [53.23101999999999, -0.8975099999999998],
@@ -67,6 +72,21 @@ const Map: React.FC<MapProps> = ({tileLayer, layerGroups, mapOverlays, zoomSetti
         {tileLayer}
         {layerGroups?.map((layerGroup) => layerGroup)}
         <SetUrlParams />
+        {enableDraw && (
+            <FeatureGroup>
+            <EditControl
+              position='topright'
+              onCreated={(e) => {
+                const layer = e.layer;
+                const geoJson = layer.toGeoJSON();
+                console.log(geoJson);
+              }}
+              draw={{
+                polygon: true
+              }}
+            />
+            </FeatureGroup>
+        )}
       </MapContainer>
       {mapOverlays?.map((overlay) => overlay)}
     </div>
